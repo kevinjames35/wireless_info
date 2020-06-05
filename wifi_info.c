@@ -54,17 +54,18 @@
 
       memset(&iwstats, 0, sizeof(iwstats));
 
-      wrq.u.data.pointer = (caddr_t) &iwstats;
-      wrq.u.data.length = sizeof(&iwstats);
+      wrq.u.data.pointer = &iwstats;
+      wrq.u.data.length = sizeof(struct iw_statistics);
       wrq.u.data.flags = 1;
 
-      // ERROR HERE...
       if (ioctl(sock, SIOCGIWSTATS, &wrq) == -1) {
         perror("Can't open socket to obtain iwstats");
         return(-1);
       }
 
+      printf("Signal level is %d\n", iwstats.qual.updated);
       return(0);
+
     }
 
     int main(int argc, char const *argv[]) {
