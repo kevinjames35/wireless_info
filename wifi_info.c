@@ -66,8 +66,8 @@
         return(-1);
       }
 
-printf("signal level is %d\n",iwstats.qual.level);
-printf("link quality is %d\n",iwstats.qual.qual);
+printf("signal level is %d (dBm)\n",(iwstats.qual.level)-0x100);
+printf("link quality is %d (%)\n",iwstats.qual.qual);
 
       return(0);
 
