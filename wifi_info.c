@@ -45,16 +45,14 @@
 
     int wifiInfo() {
       wrq.u.essid.pointer = essid;
-      printf("11ESSID is %s\n", wrq.u.essid.pointer);
+     
       if (ioctl(sock, SIOCGIWESSID, &wrq) == -1) {
         perror("Can't open socket to obtain essid");
         return(-1);
       }
 
-      printf("22ESSID is %s\n", wrq.u.essid.pointer);
+      printf("ESSID is %s\n", wrq.u.essid.pointer);
 
-
-	printf("signal level is %d\n ",iwstats.qual.qual);
 
 
       memset(&iwstats, 0, sizeof(iwstats));
