@@ -67,13 +67,10 @@
         perror("Can't open socket to obtain iwstats");
         return(-1);
       }
-<<<<<<< HEAD
+
 printf("signal level is %d\n",iwstats.qual.level);
 printf("link quality is %d\n",iwstats.qual.qual);
-=======
 
-      printf("Signal level is %d\n", iwstats.qual.updated);
->>>>>>> 9a853d34c6abbd84b01a5a2d9169eb567411c310
       return(0);
 
     }
