@@ -13,7 +13,7 @@
     char ifname[IFNAMSIZ];
     char essid[IW_ESSID_MAX_SIZE+1];
     struct iwreq wrq;
-    struct iw_statistics *iwstats;
+    struct iw_statistics iwstats;
     int sock;
 
 
@@ -45,17 +45,22 @@
 
     int wifiInfo() {
       wrq.u.essid.pointer = essid;
+      printf("11ESSID is %s\n", wrq.u.essid.pointer);
       if (ioctl(sock, SIOCGIWESSID, &wrq) == -1) {
         perror("Can't open socket to obtain essid");
         return(-1);
       }
 
-      printf("ESSID is %s\n", wrq.u.essid.pointer);
+      printf("22ESSID is %s\n", wrq.u.essid.pointer);
+
+
+	printf("signal level is %d\n ",iwstats.qual.qual);
+
 
       memset(&iwstats, 0, sizeof(iwstats));
 
-      wrq.u.data.pointer = (caddr_t) &iwstats;
-      wrq.u.data.length = sizeof(&iwstats);
+      wrq.u.data.pointer = &iwstats;
+      wrq.u.data.length = sizeof(struct iw_statistics);
       wrq.u.data.flags = 1;
 
       // ERROR HERE...
@@ -63,7 +68,8 @@
         perror("Can't open socket to obtain iwstats");
         return(-1);
       }
-
+printf("signal level is %d\n",iwstats.qual.level);
+printf("link quality is %d\n",iwstats.qual.qual);
       return(0);
     }
 
